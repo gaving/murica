@@ -11,7 +11,6 @@ var app = app || {};
     },
 
     initialize: function () {
-
       this.Location = Backbone.GoogleMaps.Location.extend({
         idAttribute: 'title',
         defaults: {
@@ -26,28 +25,13 @@ var app = app || {};
 
       this.MarkerCollectionView = Backbone.GoogleMaps.MarkerCollectionView.extend({
         addChild: function(model) {
-          console.log("ho", model);
           Backbone.GoogleMaps.MarkerCollectionView.prototype.addChild.apply(this, arguments);
         }
       });
 
+      this.places = new this.LocationCollection([]);
 
-      var places = [
-        {
-        title: "Walker Art Center",
-        lat: 44.9796635,
-        lng: -93.2748776
-      },
-      {
-        title: "Science Museum of Minnesota",
-        lat: 44.9429618,
-        lng: -93.0981016
-      }
-      ];
-
-      this.places = new this.LocationCollection(places);
-
-      var map = new google.maps.Map($('#map')[0], {
+      this.map = new google.maps.Map($('#map')[0], {
         center: new google.maps.LatLng(39.5000000, -98.3500000),
         zoom: 4,
         mapTypeId: google.maps.MapTypeId.TERRAIN,
@@ -63,21 +47,14 @@ var app = app || {};
         }]
       });
 
-      this.places.add({
-        title: 'State Capitol Building',
-        lat: 44.9543075,
-        lng: -93.102222
-      });
-
-      var markerCollectionView = new this.MarkerCollectionView({
+      this.markerView = new this.MarkerCollectionView({
         collection: this.places,
-        map: map
+        map: this.map
       });
-
-      markerCollectionView.render();
     },
 
     render: function () {
+      markerView.render();
     }
   });
 })(jQuery);
