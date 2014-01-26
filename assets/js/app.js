@@ -5,7 +5,7 @@ var ENTER_KEY = 13;
 
 $(function () {
   'use strict';
-  new app.AppView();
+  var main = new app.AppView();
 
   (function (io) {
     var socket = io.connect();
@@ -17,6 +17,13 @@ $(function () {
 
       socket.on('message', function messageReceived(message) {
         console.log('New message received :: ', message);
+        var model = message.model;
+
+        main.places.add({
+          title: model.name,
+          lat: model.lat,
+          lng: model.lng
+        });
       });
     });
 

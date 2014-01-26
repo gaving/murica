@@ -9,11 +9,9 @@
 module.exports = {
 
   attributes: {
-  	
-  	/* e.g.
-  	nickname: 'string'
-  	*/
-    
+    name: 'string',
+    lat: 'float',
+    lng: 'float'
   }
 
 };
