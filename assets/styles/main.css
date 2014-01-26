@@ -1,0 +1,17 @@
+/* Space out content a bit */
+html, body, #map {
+    height: 100%;
+    width:100%;
+    padding:0px;
+    margin:0px;
+}
+
+.gmnoprint a, .gmnoprint span {
+    display:none;
+}
+.gmnoprint div {
+    background:none !important;
+}
+#map div div a div img{
+    display:none;
+}
