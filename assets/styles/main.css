@@ -15,3 +15,13 @@ html, body, #map {
 #map div div a div img{
     display:none;
 }
+
+.alertify-logs {
+    top: 10px;
+    right: 10px;
+    height: 10px;
+}
+
+.gm-style-iw + div {
+  display: none;
+}

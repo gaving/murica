@@ -52,10 +52,15 @@ var app = app || {};
         collection: this.places,
         map: this.map
       });
+
+
     },
 
     render: function () {
       markerView.render();
+
     }
   });
+
+
 })(jQuery);
