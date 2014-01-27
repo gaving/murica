@@ -11,6 +11,7 @@ var app = app || {};
     },
 
     initialize: function () {
+
       this.Location = Backbone.GoogleMaps.Location.extend({
         idAttribute: 'title',
         defaults: {
