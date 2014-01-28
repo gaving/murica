@@ -18,7 +18,7 @@
 
       You can link any CSS, LESS, or image files in your `assets` directory
       as you would normally: using <link/> tags.
-      
+
     -->
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="/bower_components/alertify.js/themes/alertify.core.css">
@@ -33,7 +33,7 @@
       located in the top-level of this Sails app.  If you run into issues with styles
       not reloading, check the Sails log output in your console for LESS compilation errors.
       If necessary, shut down and then lift your app again.
-      
+
     -->
     <script type="text/javascript" src="/bower_components/jquery/jquery.js"></script>
     <script type="text/javascript" src="/bower_components/underscore/underscore.js"></script>
@@ -42,6 +42,7 @@
     <script type="text/javascript" src="/bower_components/alertify.js/lib/alertify.min.js"></script>
     <script type="text/javascript" src="/bower_components/screenfull/dist/screenfull.min.js"></script>
     <script type="text/javascript" src="/bower_components/howler/howler.min.js"></script>
+    <script type="text/javascript" src="/bower_components/keymaster/keymaster.js"></script>
 
   </head>
 
@@ -56,7 +57,7 @@
       Client-side Javascript
       ========================
 
-      You can import any js files in your `assets` directory as you would 
+      You can import any js files in your `assets` directory as you would
       normally: using <script></script> tags.
 
       Here's an example of importing a few dependencies, in order:
@@ -87,7 +88,7 @@
       Another way: The Asset Linker
       ========================
 
-      Sails supports a Grunt-based asset linker, to automatically inject 
+      Sails supports a Grunt-based asset linker, to automatically inject
       <link> and <script> tags, as well any client-side templates you're using
       into your HTML layouts and views, respecting dependencies.
 

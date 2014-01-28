@@ -4,7 +4,44 @@ $ ->
   'use strict'
   view = new app.AppView()
 
-  sound = new Howl(urls: [ "murica.mp3" ]).play()
+  class Question
+    constructor: (@states) ->
+      @states = _.shuffle(@states)
+
+    ask: ->
+      @question = _.first(@states)?.name
+      @states = _.rest(@states)
+
+      $('article.alertify-log-show').click()
+
+      if @question
+        alertify.log "Where is #{@question}?", "", 0
+      else
+        alertify.success "All done!"
+
+    current: ->
+      @question
+
+    check: (state) ->
+      if state.name is @current()
+        alertify.success "You got it!"
+        @next()
+      else
+        alertify.error "Nope!"
+
+    next: (meters) ->
+      question = _.first(@states)
+      @states = _.rest(@states)
+      @ask()
+
+  howl = new Howl(urls:["media/murica.mp3"])
+  sound = howl.play()
+
+
+  $("div.mute").on 'click', ->
+    $(this).toggleClass('muted')
+    Howler.mute() if $(this).hasClass('muted')
+    Howler.unmute() if not $(this).hasClass('muted')
 
   socket = io.connect()
   socket.on 'connect', (client) ->
@@ -15,17 +52,18 @@ $ ->
       ]
 
       infoWindow = null
-      question = _.sample(states).name
-      alertify.log "Where is #{question}?", "", 0
+
+      question = new Question states
+      question.ask()
       alertify.set(delay: 1000)
 
-      markerBounds = new google.maps.LatLngBounds()
+      key 'space', ->
+        question.next()
 
       _.each states, (state) ->
         pts = []
         _.each state.point, (point) ->
           pts.push new google.maps.LatLng(point.lat, point.lng)
-          markerBounds.extend(new google.maps.LatLng(point.lat, point.lng))
 
         poly = new google.maps.Polygon
           paths: pts
@@ -42,19 +80,12 @@ $ ->
             map: view.map
             position: event.latLng
             content: state.name
-          #infoWindow.open view.map
 
-          #screenfull.request()
-          #view.map.fitBounds(markerBounds)
+          question.check(state)
 
-          #$('article.alertify-log').text(state.name)
-          #alertify.log "yeahhh"
-
-          alertify.success "You got it!" if state.name is question
-          alertify.error "Nope!" if state.name isnt question
           if state.name is "New York"
             sound.stop()
-            sound = new Howl(urls: [ "empire.mp3" ]).play() 
+            sound = new Howl(urls:["media/empire.mp3" ]).play()
 
         google.maps.event.addListener poly, 'mouseover', ->
           @setOptions
@@ -75,11 +106,11 @@ $ ->
           #view.map.setCenter(new google.maps.LatLng(39.5000000, -98.3500000))
           #view.map.setZoom(3)
 
-    socket.on 'message', (message) ->
-      model = message.data
-      view.places.add
-        title: model.name
-        lat: model.lat
-        lng: model.lng
+    #socket.on 'message', (message) ->
+      #model = message.data
+      #view.places.add
+        #title: model.name
+        #lat: model.lat
+        #lng: model.lng
 
   window.socket = socket

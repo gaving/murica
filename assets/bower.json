@@ -9,6 +9,7 @@
     "backbone.googlemaps": "*",
     "alertify.js": "~0.3.11",
     "screenfull": "~1.1.1",
-    "howler": "~1.1.16"
+    "howler": "~1.1.16",
+    "keymaster": "~1.6.1"
   }
 }

@@ -25,3 +25,19 @@ html, body, #map {
 .gm-style-iw + div {
   display: none;
 }
+
+.mute {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    background:url(../images/unmute.png) center right no-repeat;
+    padding:0 25px 0 0;
+    white-space:nowrap;
+}
+
+.muted {
+    background-image: url(../images/mute.png);
+}
