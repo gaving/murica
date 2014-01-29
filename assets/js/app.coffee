@@ -4,6 +4,9 @@ $ ->
   'use strict'
   view = new app.AppView()
 
+  howl = new Howl(urls:["media/murica.mp3"])
+  sound = howl.play()
+
   class Question
     constructor: (@states) ->
       @states = _.shuffle(@states)
@@ -25,18 +28,18 @@ $ ->
     check: (state) ->
       if state.name is @current()
         alertify.success "You got it!"
+
+        if state.name is "New York"
+          sound.stop()
+          sound = new Howl(urls:["media/empire.mp3" ]).play()
+        new Howl(urls:["media/correct" + _.sample(_.range(1,6)) + ".wav"]).play()
         @next()
       else
         alertify.error "Nope!"
+        new Howl(urls:["media/wrong" + _.sample(_.range(1,6)) + ".wav"]).play()
 
     next: (meters) ->
-      question = _.first(@states)
-      @states = _.rest(@states)
       @ask()
-
-  howl = new Howl(urls:["media/murica.mp3"])
-  sound = howl.play()
-
 
   $("div.mute").on 'click', ->
     $(this).toggleClass('muted')
@@ -46,6 +49,10 @@ $ ->
   socket = io.connect()
   socket.on 'connect', (client) ->
     socket.request '/state', {}, (states) ->
+
+      # damn you Hawaii
+      states = _.without(states, _.findWhere(states, {name: 'Hawaii'}))
+
       colours = [
         '#B02B2C', '#D15600', '#C79810', '#73880A',
         '#6BBA70', '#3F4C6B', '#356AA0', '#D01F3C'
@@ -82,10 +89,6 @@ $ ->
             content: state.name
 
           question.check(state)
-
-          if state.name is "New York"
-            sound.stop()
-            sound = new Howl(urls:["media/empire.mp3" ]).play()
 
         google.maps.event.addListener poly, 'mouseover', ->
           @setOptions
