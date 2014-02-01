@@ -41,3 +41,8 @@ html, body, #map {
 .muted {
     background-image: url(../images/mute.png);
 }
+
+#score-list {
+  visibility: hidden;
+  display: none;
+}
