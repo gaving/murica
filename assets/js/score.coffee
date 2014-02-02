@@ -27,7 +27,7 @@ $ ->
     initialize: ->
       @collection = new app.ScoreList()
       @collection.comparator = (model) ->
-        model.get( 'score' )
+        model.get('score')
 
       @listenTo(@collection, 'add', @addOne)
       @listenTo(@collection, 'reset', @addAll)
