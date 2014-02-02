@@ -4,25 +4,21 @@ _.templateSettings =
 app = app or {}
 $ ->
   'use strict'
-
   view = new app.AppView()
-  that = this
 
-  sound = null
-  bigbox = humane.create
-    baseCls: "humane-bigbox"
-    timeout: 0
-    clickToClose: true
-  bigbox.error = bigbox.spawn(addnCls: "humane-bigbox-error")
-  bigbox.error "Guess the state!<br /><br />1st attempt = 3 pts<br />2nd attempt = 2 pts<br />3rd attempt = 1 point<br /><br />Click to start!", =>
-    howl = new Howl(urls:["media/murica.mp3"])
-    sound = howl.play()
-    @go()
-
-  $("div.mute").on 'click', ->
+  $('div.mute').on 'click', ->
     $(this).toggleClass('muted')
     Howler.mute() if $(this).hasClass('muted')
     Howler.unmute() if not $(this).hasClass('muted')
+
+  bigbox = humane.create
+    baseCls: 'humane-bigbox'
+    timeout: 0
+    clickToClose: true
+
+  bigbox.error = bigbox.spawn(addnCls: 'humane-bigbox-error')
+  bigbox.error 'Guess the state!<br /><br />1st attempt = 3 pts<br />2nd attempt = 2 pts<br />3rd attempt = 1 point<br /><br />Click to start!', =>
+    @go()
 
   @go = ->
     socket = io.connect()
@@ -30,8 +26,10 @@ $ ->
       socket.request '/state', {}, (states) ->
 
         # damn you Hawaii
-        states = _.without(states, _.findWhere(states, {name: 'Hawaii'}))
+        #states = _.without(states, _.findWhere(states, {name: 'Hawaii'}))
+        states = [_.findWhere(states, {name: 'New York'})]
         #states = _.first(states, 1)
+        #states = [_.sample(states)]
 
         colours = [
           '#B02B2C', '#D15600', '#C79810', '#73880A',
@@ -41,11 +39,10 @@ $ ->
         infoWindow = null
 
         question = new Question states
-        question.ask()
         alertify.set(delay: 1000)
 
         key 'space', ->
-          question.next()
+          question.ask()
 
         _.each states, (state) ->
           pts = []
@@ -80,20 +77,5 @@ $ ->
             @setOptions
               strokeOpacity: 0.8
               fillOpacity: 0.35
-
-        #$(document).on screenfull.raw.fullscreenchange, ->
-          #if (screenfull.isFullscreen)
-            #view.map.fitBounds(markerBounds)
-            #view.map.setZoom(4)
-          #else
-            #view.map.setCenter(new google.maps.LatLng(39.5000000, -98.3500000))
-            #view.map.setZoom(3)
-
-      #socket.on 'message', (message) ->
-        #model = message.data
-        #view.places.add
-          #title: model.name
-          #lat: model.lat
-          #lng: model.lng
 
     window.socket = socket
