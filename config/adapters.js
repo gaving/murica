@@ -35,5 +35,14 @@ module.exports.adapters = {
     // so you don't inadvertently push it up if you're using version control
     password: 'YOUR_MYSQL_PASSWORD', 
     database: 'YOUR_MYSQL_DB'
+  },
+
+  mongo: {
+    module : 'sails-mongo',
+    host : process.env.MONGO_HOST,
+    port : process.env.MONGO_PORT,
+    user : process.env.MONGO_USER,
+    password : process.env.MONGO_PASSWORD,
+    database : process.env.MONGO_DB
   }
 };
