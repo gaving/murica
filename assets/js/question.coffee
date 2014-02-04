@@ -13,7 +13,6 @@ class Question
     for sound in ['correct', 'wrong']
       @sounds[sound] = (new Howl(urls:["media/#{sound}#{i}.wav"]) for i in [1..5])
 
-    @sounds['empire'] = new Howl(urls:["media/empire.mp3" ])
     @ask()
 
   ask: ->
@@ -37,9 +36,6 @@ class Question
       @score += 2 if @attempts is 2
       @score += 1 if @attempts is 3
 
-      if state.name is "New York"
-        @sounds['murica'].stop()
-        @sounds['empire'].play()
       @ask()
     else
       _.sample(@sounds['wrong']).play()
