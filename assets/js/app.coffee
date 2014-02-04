@@ -26,8 +26,8 @@ $ ->
       socket.request '/state', {}, (states) ->
 
         # damn you Hawaii
-        states = _.without(states, _.findWhere(states, {name: 'Hawaii'}))
-        #states = [_.findWhere(states, {name: 'New York'})]
+        #states = _.without(states, _.findWhere(states, {name: 'Hawaii'}))
+        states = [_.findWhere(states, {name: 'New York'})]
         #states = _.first(states, 1)
         #states = [_.sample(states)]
 

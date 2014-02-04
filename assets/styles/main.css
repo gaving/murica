@@ -1,25 +1,30 @@
 /* Space out content a bit */
 html, body, #map {
-    height: 100%;
-    width:100%;
-    padding:0px;
-    margin:0px;
+  height: 100%;
+  width:100%;
+  padding:0px;
+  margin:0px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
 }
 
 .gmnoprint a, .gmnoprint span {
-    display:none;
+  display:none;
 }
 .gmnoprint div {
-    background:none !important;
+  background:none !important;
 }
 #map div div a div img{
-    display:none;
+  display:none;
 }
 
 .alertify-logs {
-    top: 10px;
-    right: 10px;
-    height: 10px;
+  top: 10px;
+  right: 10px;
+  height: 10px;
 }
 
 .gm-style-iw + div {
@@ -27,19 +32,19 @@ html, body, #map {
 }
 
 .mute {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100px;
-    height: 100px;
-    cursor: pointer;
-    background:url(../images/unmute.png) center right no-repeat;
-    padding:0 25px 0 0;
-    white-space:nowrap;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+  background:url(../images/unmute.png) center right no-repeat;
+  padding:0 25px 0 0;
+  white-space:nowrap;
 }
 
 .muted {
-    background-image: url(../images/mute.png);
+  background-image: url(../images/mute.png);
 }
 
 #score-list {
